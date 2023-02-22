@@ -13,8 +13,8 @@ Using the D3 library, samples.json were read in from the URL https://2u-data-cur
 
 ## Features
 
--Horizontal bar chart
--Bubble chat
--
--
--
+-Horizontal bar chart: Displays Sample Values for OTU IDs
+-Bubble chart: Displays each Sample Value for OTU IDs
+-Demographic Information Display: Shows each individual's demographic information
+-Other display: Each key-valye pair from the metadata JSON object
+-Updatable plots: When a new sample is selected, all plots are updated
