@@ -14,26 +14,27 @@ function init(){
     d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json").then(function(data) {
         console.log(data);
         let samples = data.samples
-        let sample_array = samples.filter(sample=>sample.id == id)
-        let sample = sample_array[0]
-    
-        //Use sample_values as the values for the bar chart.
-        //Use otu_ids as the labels for the bar chart.
-        //Use otu_labels as the hovertext for the chart.
+        //let sample_array = samples.filter(sample=>sample.id == id)
+        //let sample = sample_array[0]
+        let names = data.names;
+
+            // create dropdown/select
+    let dropdownMenu = d3.select("#selDataset")
+    for (let i=0; i<names.length;i++){dropdownMenu.append("option").text(names[i]).property("value",names[i])
+    };
     });
     // this checks that our initial function runs.
     console.log("The Init() function ran")
 
-    // create dropdown/select
-    let dropdownMenu = d3.select("#selDataset");
+
   // Assign the value of the dropdown menu option to a letiable
-  let dataset = dropdownMenu.property("value");
+  //let dataset = dropdownMenu.property("value");
  
 
     // run functions to generate plots
-   createScatter('940')
-    createBar('940')
-    createSummary('940')
+   createScatter('940');
+    createBar('940');
+    createSummary('940');
 
 }
 
@@ -118,7 +119,7 @@ function createBar(id){
     let trace1 = {
 
         x: otu_ids,
-        y: sample_values,
+        y: sample_values.map(otu=>`otu ${otu}`),
         type: 'bar',
         orientation: 'h'
     };
@@ -145,7 +146,8 @@ function createSummary(id){
     let sample_array = sample_metadata.filter(sample=>sample.id == id)
     let sample = sample_array[0]
     // code that makes list, paragraph, text/linebreaks at id='sample-meta'
-    let metadata_target = d3.select("#selDataset")
+    let metadata_target = d3.select("#sample-metadata")
+    metadata_target.html("")
     for (metadata in sample) {
         metadata_target.append("h3").text(`${metadata} ${sample[metadata]}`)
     }
